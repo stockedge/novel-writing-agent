@@ -1,0 +1,46 @@
+# 計算論的物語論統合型ハイファンタジー小説執筆システム v6.0
+# 依存関係
+
+# 数値計算・データ分析
+numpy>=1.21.0
+scipy>=1.7.0
+
+# 可視化
+matplotlib>=3.5.0
+seaborn>=0.11.0
+
+# 自然言語処理
+nltk>=3.7
+textblob>=0.17.1
+
+# 非同期処理
+asyncio
+
+# データ構造
+dataclasses-json>=0.5.7
+
+# 型ヒント
+typing-extensions>=4.0.0
+
+# ファイル操作
+pathlib2>=2.3.6
+
+# 時間処理
+python-dateutil>=2.8.2
+
+# ロギング
+loguru>=0.6.0
+
+# 設定管理
+pydantic>=1.8.2
+
+# オプション：より高度な機能用
+# langchain>=0.0.200  # LLM統合用（将来の拡張）
+# transformers>=4.20.0  # 高度なNLP機能用（将来の拡張）
+# torch>=1.12.0  # ディープラーニング機能用（将来の拡張）
+
+# 開発用ツール
+pytest>=7.0.0
+black>=22.0.0
+flake8>=4.0.0
+mypy>=0.950 
