@@ -391,6 +391,19 @@ tests/
 └── test_integration.py             # 統合テスト
 ```
 
+##  CI/CD
+
+This project uses GitHub Actions for Continuous Integration. The workflow is defined in `.github/workflows/ci.yml`.
+
+The CI pipeline performs the following checks on every push and pull request:
+- Lints the code using Ruff (`ruff check` and `ruff format --check`).
+- Performs static type checking using mypy (`mypy src`).
+- Runs tests using pytest (`pytest tests/`).
+
+These checks are performed across multiple Python versions (3.10, 3.11, 3.12) to ensure compatibility.
+
+**Note on `GROQ_API_KEY`**: The core functionality of this project relies on the Groq API. While the tests are designed to run, some might be skipped or might not fully reflect real-world behavior if the `GROQ_API_KEY` is not available as a repository secret. For comprehensive testing in your own fork or environment, ensure this secret is configured.
+
 ## 🤝 コントリビューション
 
 ### プルリクエストガイドライン

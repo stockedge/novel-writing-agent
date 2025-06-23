@@ -1,0 +1,50 @@
+name: Python CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Install uv
+      run: |
+        curl -LsSf https://astral.sh/uv/install.sh | sh
+        echo "$HOME/.cargo/bin" >> $GITHUB_PATH
+
+    - name: Install dependencies
+      run: |
+        uv sync --system-site-packages
+
+    - name: Lint with ruff
+      run: |
+        uv run ruff check src tests
+        uv run ruff format --check src tests
+
+    - name: Type check with mypy
+      run: |
+        uv run mypy src
+
+    - name: Test with pytest
+      run: |
+        uv run pytest tests/
+
+    - name: Check for Groq API Key
+      env:
+        GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+      run: |
+        if [ -z "$GROQ_API_KEY" ]; then
+          echo "Warning: GROQ_API_KEY is not set. Some tests might be skipped or fail."
+          echo "Consider adding it to your repository secrets for full test coverage."
+        else
+          echo "GROQ_API_KEY is set."
+        fi
